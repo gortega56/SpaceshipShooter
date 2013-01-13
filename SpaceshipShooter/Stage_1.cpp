@@ -18,21 +18,27 @@ float currentLookX = cameraPositions[0][3];
 float currentLookY = cameraPositions[0][4];
 float currentLookZ = cameraPositions[0][5];
 
-float vWing1[4][3] = {{1,0,0},{0,0.3,0},{-1,0,0},{0,0,-1}};
+float vWing1[4][3] = {{100,0,0},{0,100,0},{-100,0,0},{0,0,100}};
 int sWing1[4][3] = {{0,1,2},{0,3,1},{3,1,2},{3,2,0}};
-float **nWing1;
 
-float vWing2[4][3] = {{1,0,0},{0,-0.2,0},{-1,0,0},{0,0,-1}};
-int sWing2[4][3] = {{0,1,2},{0,3,1},{3,1,2},{3,2,0}};
-float **nWing2;
+float vFin[8][3] = {{0,0,0},{100,0,0},{150,100,0},{125,100,0},{0,0,50},{100,0,50},{150,100,50},{125,100,50}};
+int sFin[6][4] = {{0,1,2,3},{4,5,6,7},{0,4,7,3},{1,5,6,2},{3,2,6,7},{0,1,5,4}};
 
-float vFin1[4][3] = {{0.4,0,0},{0,1,0.5},{-0.4,0,0},{0,0,-1.2}};
-int sFin1[4][3] = {{0,1,2},{0,3,1},{3,1,2},{3,2,0}};
-float **nFin1;
-
-float vFin2[4][3] = {{0.4,0,0},{0,-0.3,0.5},{-0.4,0,0},{0,0,-1.2}};
-int sFin2[4][3] = {{0,1,2},{0,3,1},{3,1,2},{3,2,0}};
-float **nFin2;
+//float vWing1[4][3] = {{1,0,0},{0,0.3,0},{-1,0,0},{0,0,-1}};
+//int sWing1[4][3] = {{0,1,2},{0,3,1},{3,1,2},{3,2,0}};
+//float **nWing1;
+//
+//float vWing2[4][3] = {{1,0,0},{0,-0.2,0},{-1,0,0},{0,0,-1}};
+//int sWing2[4][3] = {{0,1,2},{0,3,1},{3,1,2},{3,2,0}};
+//float **nWing2;
+//
+//float vFin1[4][3] = {{0.4,0,0},{0,1,0.5},{-0.4,0,0},{0,0,-1.2}};
+//int sFin1[4][3] = {{0,1,2},{0,3,1},{3,1,2},{3,2,0}};
+//float **nFin1;
+//
+//float vFin2[4][3] = {{0.4,0,0},{0,-0.3,0.5},{-0.4,0,0},{0,0,-1.2}};
+//int sFin2[4][3] = {{0,1,2},{0,3,1},{3,1,2},{3,2,0}};
+//float **nFin2;
 
 void cameraOperations()
 {
@@ -54,47 +60,47 @@ void cameraOperations()
 	if (currentLookZ<cameraPositions[cameraPos][5]) currentLookZ++;
 	else if (currentLookZ>cameraPositions[cameraPos][5]) currentLookZ--;
 }
-void normalize(GLfloat *v)
-{
-    float len = sqrtf((v[0]*v[0]) + (v[1]*v[1]) + (v[2]*v[2]));
-    
-    // Avoid division by 0
-    if (len == 0.0f)
-        len = 1.0f;
-    
-    // Reduce to unit size
-    v[0] /= len;
-    v[1] /= len;
-    v[2] /= len;
-}
-
-GLfloat** getNormalsForAllSides(float v[][3], int sides[][3], int numberOfSides)
-{
-    GLfloat **normals = new GLfloat*[numberOfSides];    // Store all normals
-    for (int i=0;i<numberOfSides;i++) {
-        // Get 2 vectors for this side
-        GLfloat *vector1 = new GLfloat[3];
-        vector1[0] = v[sides[i][0]][0] - v[sides[i][1]][0];
-        vector1[1] = v[sides[i][0]][1] - v[sides[i][1]][1];
-        vector1[2] = v[sides[i][0]][2] - v[sides[i][1]][2];
-    
-        GLfloat *vector2 = new GLfloat[3];
-        vector2[0] = v[sides[i][1]][0] - v[sides[i][2]][0];
-        vector2[1] = v[sides[i][1]][1] - v[sides[i][2]][1];
-        vector2[2] = v[sides[i][1]][2] - v[sides[i][2]][2];
-
-        // Cross Product of 2 vectors
-        GLfloat *normal = new GLfloat[3];   // Store one normal at a time
-        normal[0] = (vector1[1] * vector2[2]) - (vector1[2] * vector2[1]);  // vec1.y*vec2.z - vec1.z*vec2.y
-        normal[1] = (vector1[2] * vector2[0]) - (vector1[0] * vector2[2]);  // vec1.z*vec2.x - vec1.x*vec2.z
-        normal[2] = (vector1[0] * vector2[1]) - (vector1[1] * vector2[0]);  // vec1.x*vec2.y - vec1.y*vec2.x
-    
-        normalize(normal);
-        
-        normals[i] = normal;
-    }
-    return normals;
-}
+//void normalize(GLfloat *v)
+//{
+//    float len = sqrtf((v[0]*v[0]) + (v[1]*v[1]) + (v[2]*v[2]));
+//    
+//    // Avoid division by 0
+//    if (len == 0.0f)
+//        len = 1.0f;
+//    
+//    // Reduce to unit size
+//    v[0] /= len;
+//    v[1] /= len;
+//    v[2] /= len;
+//}
+//
+//GLfloat** getNormalsForAllSides(float v[][3], int sides[][3], int numberOfSides)
+//{
+//    GLfloat **normals = new GLfloat*[numberOfSides];    // Store all normals
+//    for (int i=0;i<numberOfSides;i++) {
+//        // Get 2 vectors for this side
+//        GLfloat *vector1 = new GLfloat[3];
+//        vector1[0] = v[sides[i][0]][0] - v[sides[i][1]][0];
+//        vector1[1] = v[sides[i][0]][1] - v[sides[i][1]][1];
+//        vector1[2] = v[sides[i][0]][2] - v[sides[i][1]][2];
+//    
+//        GLfloat *vector2 = new GLfloat[3];
+//        vector2[0] = v[sides[i][1]][0] - v[sides[i][2]][0];
+//        vector2[1] = v[sides[i][1]][1] - v[sides[i][2]][1];
+//        vector2[2] = v[sides[i][1]][2] - v[sides[i][2]][2];
+//
+//        // Cross Product of 2 vectors
+//        GLfloat *normal = new GLfloat[3];   // Store one normal at a time
+//        normal[0] = (vector1[1] * vector2[2]) - (vector1[2] * vector2[1]);  // vec1.y*vec2.z - vec1.z*vec2.y
+//        normal[1] = (vector1[2] * vector2[0]) - (vector1[0] * vector2[2]);  // vec1.z*vec2.x - vec1.x*vec2.z
+//        normal[2] = (vector1[0] * vector2[1]) - (vector1[1] * vector2[0]);  // vec1.x*vec2.y - vec1.y*vec2.x
+//    
+//        normalize(normal);
+//        
+//        normals[i] = normal;
+//    }
+//    return normals;
+//}
 void stageInit()
 {
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -121,10 +127,10 @@ void stageInit()
     glEnable(GL_NORMALIZE);
     
     // Get normals matrix for each polygon side
-    nWing1 = getNormalsForAllSides(vWing1, sWing1, 4);
-    nWing2 = getNormalsForAllSides(vWing1, sWing2, 4);
-    nFin1 = getNormalsForAllSides(vFin1, sFin1, 4);
-    nFin2 = getNormalsForAllSides(vFin2, sFin2, 4);
+    //nWing1 = getNormalsForAllSides(vWing1, sWing1, 4);
+    //nWing2 = getNormalsForAllSides(vWing1, sWing2, 4);
+    //nFin1 = getNormalsForAllSides(vFin1, sFin1, 4);
+    //nFin2 = getNormalsForAllSides(vFin2, sFin2, 4);
 
 	// Set all key states = false
 	std::fill_n(specialKeyStates,246,false);
@@ -199,81 +205,201 @@ void drawFire()
     }
 }
 
-
-void drawSpaceShip()
+void drawFin() 
 {
-    glBegin(GL_TRIANGLES);
-    for (int i=0; i<4; i++) {
-        
-        // Wing 1
-        glColor3f(0.6, 0.2, 0.2);
-        glNormal3fv(&nWing1[i][0]);
+	glPushMatrix();
+	glTranslated(12.5,100,500);
+	glRotated(-90,0,1,0);
+	glScaled(2,2.5,0.5);
+	glBegin(GL_QUADS);
+	glColor3f(0,0,0);
+	for (int i=0;i<6;i++) {
+		glVertex3f(vFin[sFin[i][0]][0],vFin[sFin[i][0]][1],vFin[sFin[i][0]][2]); 
+		glVertex3f(vFin[sFin[i][1]][0],vFin[sFin[i][1]][1],vFin[sFin[i][1]][2]);
+		glVertex3f(vFin[sFin[i][2]][0],vFin[sFin[i][2]][1],vFin[sFin[i][2]][2]);
+		glVertex3f(vFin[sFin[i][3]][0],vFin[sFin[i][3]][1],vFin[sFin[i][3]][2]);
+	}
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(17.5,100,515);
+	glRotated(-90,0,1,0);
+	glScaled(1.8,2.3,0.7);
+	glBegin(GL_QUADS);
+	glColor3f(1,1,1);
+	for (int i=0;i<6;i++) {
+		glVertex3f(vFin[sFin[i][0]][0],vFin[sFin[i][0]][1],vFin[sFin[i][0]][2]); 
+		glVertex3f(vFin[sFin[i][1]][0],vFin[sFin[i][1]][1],vFin[sFin[i][1]][2]);
+		glVertex3f(vFin[sFin[i][2]][0],vFin[sFin[i][2]][1],vFin[sFin[i][2]][2]);
+		glVertex3f(vFin[sFin[i][3]][0],vFin[sFin[i][3]][1],vFin[sFin[i][3]][2]);
+	}
+	glEnd();
+	glPopMatrix();
+}
+
+void drawWings()
+{
+	glPushMatrix();
+	glTranslated(0,-100,400);
+	glScaled(2.0,0.25,-6);
+	glBegin(GL_TRIANGLES);
+    for (int i=0; i<4; i++) {  
+        // Black Narrow
+        glColor3f(0.0, 0.0, 0.0);
         glVertex3fv(vWing1[sWing1[i][0]]);
         glVertex3fv(vWing1[sWing1[i][1]]);
         glVertex3fv(vWing1[sWing1[i][2]]);
-        
-        // Wing 2
-        glNormal3fv(&nWing2[i][0]);
-        glVertex3fv(vWing2[sWing2[i][0]]);
-        glVertex3fv(vWing2[sWing2[i][1]]);
-        glVertex3fv(vWing2[sWing2[i][2]]);
-        
-        // Fin 1
-        glColor3f(0.2, 0.2, 0.2);
-        glNormal3fv(&nFin1[i][0]);
-        glVertex3fv(vFin1[sFin1[i][0]]);
-        glVertex3fv(vFin1[sFin1[i][1]]);
-        glVertex3fv(vFin1[sFin1[i][2]]);
-        
-        // Fin 2
-        glNormal3fv(&nFin2[i][0]);
-        glVertex3fv(vFin2[sFin2[i][0]]);
-        glVertex3fv(vFin2[sFin2[i][1]]);
-        glVertex3fv(vFin2[sFin2[i][2]]);
-    }
-    glEnd();
-    
-    // Boosters
-    
-    GLUquadric *cylinder = gluNewQuadric();
-    gluQuadricDrawStyle(cylinder, GL_FILL);
-    gluQuadricNormals(cylinder, GLU_SMOOTH);
-    gluQuadricOrientation(cylinder, GLU_OUTSIDE);
-    gluQuadricTexture(cylinder, GL_TRUE);
-    
-    glColor3f(0.2, 0.2, 0.2);
-    glPushMatrix();
-    glTranslated(0, 0.3, 0);
-    gluCylinder(cylinder, 0.17, 0.17, 0.35, 10, 10);
-    glPopMatrix();
-    
-    glPushMatrix();
-    glTranslated(0, 0.05, 0);
-    gluCylinder(cylinder, 0.1, 0.1, 0.3, 10, 10);
-    glPopMatrix();
-    
-    // Cockpit
-    glPushMatrix();
-    glTranslated(0, 0.2, -0.63);
-    glScaled(0.2, 0.2, 0.2);
-    glBegin(GL_TRIANGLES);
-    for (int i=0; i<4; i++) {
-        glColor3f(0,0,0);
-        glNormal3fv(nFin1[sFin1[i][0]]);
-        glVertex3fv(vFin1[sFin1[i][0]]);
-        glNormal3fv(nFin1[sFin1[i][1]]);
-        glVertex3fv(vFin1[sFin1[i][1]]);
-        glNormal3fv(nFin1[sFin1[i][2]]);
-        glVertex3fv(vFin1[sFin1[i][2]]);
-    }
-    glEnd();
-    glPopMatrix();
- 
-    glPushMatrix();
-    glTranslated(0, 0.1,0.4);
-    drawFire();
-    glPopMatrix();
+	
+	}
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(0,-100,600);
+	glScaled(5,0.25,-5);
+	glBegin(GL_TRIANGLES);
+    for (int i=0; i<4; i++) {  
+         // Black Wide
+        glColor3f(0.0, 0.0, 0.0);
+        glVertex3fv(vWing1[sWing1[i][0]]);
+        glVertex3fv(vWing1[sWing1[i][1]]);
+        glVertex3fv(vWing1[sWing1[i][2]]);
+	
+	}
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(0,-99,399);
+	glScaled(1.9,0.5,-6);
+	glBegin(GL_TRIANGLES);
+    for (int i=0; i<4; i++) {  
+        // White Narrow
+        glColor3f(1.0, 1.0, 1.0);
+        glVertex3fv(vWing1[sWing1[i][0]]);
+        glVertex3fv(vWing1[sWing1[i][1]]);
+        glVertex3fv(vWing1[sWing1[i][2]]);
+	
+	}
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(0,-99,599);
+	glScaled(4.9,0.5,-5);
+	glBegin(GL_TRIANGLES);
+    for (int i=0; i<4; i++) {  
+         // White Wide
+        glColor3f(1.0, 1.0, 1.0);
+        glVertex3fv(vWing1[sWing1[i][0]]);
+        glVertex3fv(vWing1[sWing1[i][1]]);
+        glVertex3fv(vWing1[sWing1[i][2]]);
+	}
+	glEnd();
+	glPopMatrix();
+
 }
+
+void drawSpaceShuttle() 
+{
+	glColor3f(1.0,1.0,1.0);
+	
+	GLUquadric *shape = gluNewQuadric();
+	gluQuadricDrawStyle(shape, GLU_FILL);
+	gluQuadricNormals(shape, GLU_SMOOTH);
+	gluQuadricOrientation(shape, GLU_OUTSIDE);
+	gluQuadricTexture(shape, GL_TRUE);
+
+	glPushMatrix();
+	glTranslated(0,0,700);
+	glColor3f(0,0,0);
+	gluDisk(shape,0,100,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(1.0,1.0,1.0);
+	glScaled(-1,1,1);
+	glTranslated(50,100,525);
+	gluCylinder(shape,50,50,175,20,20);
+	glColor3f(0,0,0);
+	glutSolidSphere(50,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(1.0,1.0,1.0);
+	glTranslated(50,100,525);
+	gluCylinder(shape,50,50,175,20,20);
+	glColor3f(0,0,0);
+	glutSolidSphere(50,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0.5,0.5,0.5);
+	glTranslated(50,100,690);
+	gluCylinder(shape,10,40,40,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0.5,0.5,0.5);
+	glScaled(-1,1,1);
+	glTranslated(50,100,690);
+	gluCylinder(shape,10,40,40,20,20);
+	glPopMatrix();
+
+	//body
+	glPushMatrix();
+	glColor3f(1.0,1.0,1.0);
+	gluCylinder(shape,100,100,700,20,20);
+	glutSolidSphere(100,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0,0,0);
+	glTranslated(0,0,-20);
+	glRotated(-45,1,0,0);
+	gluCylinder(shape,90,90,20,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0.5,0.5,0.5);
+	glTranslated(0,35,700);
+	gluCylinder(shape,10,50,60,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0.5,0.5,0.5);
+	glTranslated(50,-50,700);
+	gluCylinder(shape,10,50,60,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0.5,0.5,0.5);
+	glScaled(-1,1,1);
+	glTranslated(50,-50,700);
+	gluCylinder(shape,10,50,60,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0.0,0.0,0.0);
+	glTranslated(0,-60,-175);
+	glRotated(-15,1,0,0);
+	gluCylinder(shape,50,90,175,20,20);
+	glTranslated(0,0,10);
+	glutSolidSphere(50,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(1,1,1);
+	glTranslated(0,-75,400);
+	glScaled(2,0.5,6.1);
+	glutSolidCube(99);
+	glPopMatrix();
+
+	drawWings();
+	drawFin();
+}
+
 
 void display()
 {
@@ -313,7 +439,8 @@ void display()
 	glTranslated(shipX,shipY,-205);
 	glRotated(shipThetaZ,0,0,1);
 	glRotated(shipThetaX,1,0,0);
-	drawSpaceShip();
+	glScaled(0.0025,0.0025,0.0025);
+	drawSpaceShuttle();
 	glPopMatrix();
 
 	glutSwapBuffers();
